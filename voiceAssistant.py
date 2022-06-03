@@ -8,7 +8,7 @@ import base64
 from pyaudio import PyAudio, paInt16
 import webbrowser
 from fetchToken import fetch_token
-from baiduTTS import synthesis
+from tts.baiduTTS import synthesis
 
 interrupted = False  # snowboy监听唤醒结束标志
 endSnow = False  # 程序结束标志

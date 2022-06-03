@@ -8,13 +8,13 @@ if IS_PY3:
     from urllib.error import URLError
     from urllib.parse import urlencode
     from urllib.parse import quote_plus
-# else:
-#     import urllib2
-#     from urllib import quote_plus
-#     from urllib2 import urlopen
-#     from urllib2 import Request
-#     from urllib2 import URLError
-#     from urllib import urlencode
+else:
+    import urllib2
+    from urllib import quote_plus
+    from urllib2 import urlopen
+    from urllib2 import Request
+    from urllib2 import URLError
+    from urllib import urlencode
 
 
 
