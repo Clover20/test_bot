@@ -1,8 +1,6 @@
 import snowboydecoder
-import signal
 import wave
 import sys
-import json
 import requests
 import time
 import os
@@ -10,6 +8,7 @@ import base64
 from pyaudio import PyAudio, paInt16
 import webbrowser
 from fetchToken import fetch_token
+from baiduTTS import synthesis
 
 interrupted = False  # snowboy监听唤醒结束标志
 endSnow = False  # 程序结束标志
@@ -156,9 +155,10 @@ def identifyComplete(text):
     if (text == '再见。' or text == '拜拜。'):
         play(music_exit)  # 关闭系统播放反馈语音
         exit()
-    if text in maps['打开谷歌']:
+    elif text in maps['打开谷歌']:
         webbrowser.open_new_tab('https://www.google.com')
-        #play('./audio/opengoogle.wav')  # 识别到播放反馈语音
+        synthesis("已打开谷歌")
+        play('./tts/已打开谷歌.wav')  # 识别到播放反馈语音
     else:
         play('./audio/none.wav')  # 未匹配口令播放反馈语音
     print('操作完成')
