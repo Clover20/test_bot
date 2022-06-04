@@ -18,9 +18,9 @@ else:
     from urllib import urlencode
 
 
-API_KEY = 'SRI2pgjHFVxGLouzDUxECn9u'
+API_KEY = '2awggSFcQyKxp3wilzwgSwq0'
 
-SECRET_KEY = 'kURsjG5MQQECK0oaAmfSGIUMGBlRxGMW'
+SECRET_KEY = 'ezgx3apENHApNyD2g8EnBwvYwdz3lwwD'
 
 TOKEN_URL = 'http://openapi.baidu.com/oauth/2.0/token'
 

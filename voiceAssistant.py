@@ -158,7 +158,7 @@ def identifyComplete(text):
     elif text in maps['打开谷歌']:
         webbrowser.open_new_tab('https://www.google.com')
         synthesis("已打开谷歌")
-        play('./tts/已打开谷歌.wav')  # 识别到播放反馈语音
+        play('已打开谷歌.wav')  # 识别到播放反馈语音
     else:
         play('./audio/none.wav')  # 未匹配口令播放反馈语音
     print('操作完成')
