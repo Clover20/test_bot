@@ -10,6 +10,7 @@ import webbrowser
 from fetchToken import fetch_token
 from tts.baiduTTS import synthesis,synthesisAndPlay
 from tuling import robot
+from joke import joke
 
 interrupted = False  # snowboy监听唤醒结束标志
 endSnow = False  # 程序结束标志
@@ -162,9 +163,7 @@ def identifyComplete(text):
         play('已打开谷歌.wav')  # 识别到播放反馈语音
 
     elif ("对话" in text):
-
         synthesisAndPlay("已经进入图灵机器人")
-
         my_record()
         TOKEN = fetch_token()
         speech = get_audio(FILEPATH)
@@ -172,11 +171,11 @@ def identifyComplete(text):
         text2 =robot(result)
         synthesisAndPlay(text2)
     elif ("没有" in text or "那个就是" in text or "没事" in text):
-
         global interrupted
         interrupted = False
         synthesisAndPlay("我去休息了")
-
+    elif ("笑话" in text):
+        synthesisAndPlay(joke())
 
     else:
         play('./audio/none.wav')  # 未匹配口令播放反馈语音
