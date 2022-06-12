@@ -8,7 +8,8 @@ import base64
 from pyaudio import PyAudio, paInt16
 import webbrowser
 from fetchToken import fetch_token
-from tts.baiduTTS import synthesis
+from tts.baiduTTS import synthesis,synthesisAndPlay
+from tuling import robot
 
 interrupted = False  # snowboy监听唤醒结束标志
 endSnow = False  # 程序结束标志
@@ -159,22 +160,57 @@ def identifyComplete(text):
         webbrowser.open_new_tab('https://www.google.com')
         synthesis("已打开谷歌")
         play('已打开谷歌.wav')  # 识别到播放反馈语音
+
+    elif ("对话" in text):
+
+        synthesisAndPlay("已经进入图灵机器人")
+
+        my_record()
+        TOKEN = fetch_token()
+        speech = get_audio(FILEPATH)
+        result = speech2text(speech, TOKEN, int(80001))
+        text2 =robot(result)
+        synthesisAndPlay(text2)
+    elif ("没有" in text or "那个就是" in text or "没事" in text):
+
+        global interrupted
+        interrupted = False
+        synthesisAndPlay("我去休息了")
+
+
     else:
         play('./audio/none.wav')  # 未匹配口令播放反馈语音
     print('操作完成')
 
 
 if __name__ == "__main__":
-    while endSnow == False:
+    while (1):
         interrupted = False
         detector = snowboydecoder.HotwordDetector('xiaoli.pmdl', sensitivity=0.5)
         print('等待唤醒')
         detector.start(detected_callback=detected,
                        interrupt_check=interrupt_callback,
                        sleep_time=0.03)
+
         my_record()
         TOKEN = fetch_token()
         speech = get_audio(FILEPATH)
         result = speech2text(speech, TOKEN, int(80001))
         if type(result) == str:
             identifyComplete(result)
+
+        while (interrupted == True):
+            synthesisAndPlay("还有事吗")
+            my_record()
+            TOKEN = fetch_token()
+            speech = get_audio(FILEPATH)
+            result = speech2text(speech, TOKEN, int(80001))
+            if type(result) == str:
+                identifyComplete(result)
+
+
+
+
+
+
+

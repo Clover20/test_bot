@@ -1,5 +1,8 @@
 from fetchToken import fetch_token
 import sys
+import wave
+from pyaudio import PyAudio, paInt16
+
 
 IS_PY3 = sys.version_info.major == 3
 if IS_PY3:
@@ -84,3 +87,27 @@ def synthesis(text):
     print("result saved as :" + save_file)
 
 
+def play(filename):
+    """
+    播放音频
+    """
+    wf = wave.open(filename, 'rb')  # 打开audio.wav
+    p = PyAudio()                   # 实例化 pyaudio
+    # 打开流
+    stream = p.open(format=p.get_format_from_width(wf.getsampwidth()),
+                    channels=wf.getnchannels(),
+                    rate=wf.getframerate(),
+                    output=True)
+    data = wf.readframes(1024)
+    while data != b'':
+        data = wf.readframes(1024)
+        stream.write(data)
+    # 释放IO
+    stream.stop_stream()
+    stream.close()
+    p.terminate()
+
+
+def synthesisAndPlay(text):
+    synthesis(text)
+    play(text+'.wav')
