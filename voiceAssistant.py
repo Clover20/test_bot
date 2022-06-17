@@ -11,10 +11,14 @@ from fetchToken import fetch_token
 from tts.baiduTTS import synthesis,synthesisAndPlay
 from tuling import robot
 from joke import joke
+from light import light17
+from light import light16
+from light import light26
+
 
 interrupted = False  # snowboy监听唤醒结束标志
 endSnow = False  # 程序结束标志
-
+duihua=True
 framerate = 16000  # 采样率
 num_samples = 2000  # 采样点
 channels = 1  # 声道
@@ -164,19 +168,39 @@ def identifyComplete(text):
 
     elif ("对话" in text):
         synthesisAndPlay("已经进入图灵机器人")
-        my_record()
-        TOKEN = fetch_token()
-        speech = get_audio(FILEPATH)
-        result = speech2text(speech, TOKEN, int(80001))
-        text2 =robot(result)
-        synthesisAndPlay(text2)
+        global duihua
+        while(duihua==True):
+            my_record()
+            TOKEN = fetch_token()
+            speech = get_audio(FILEPATH)
+            result = speech2text(speech, TOKEN, int(80001))
+            if("终止" in result or "结束" in result or  "退出" in result or "那个就是" in result ):duihua=False
+            text2 =robot(result)
+            synthesisAndPlay(text2)
     elif ("没有" in text or "那个就是" in text or "没事" in text):
         global interrupted
         interrupted = False
         synthesisAndPlay("我去休息了")
     elif ("笑话" in text):
         synthesisAndPlay(joke())
-
+    elif("开灯" in text and "厕所" in text):
+        light17(True)
+        synthesisAndPlay("已开灯")
+    elif ("关灯" in text and "厕所" in text):
+        light17(False)
+        synthesisAndPlay("已关灯")
+    elif ("开灯" in text and "客厅" in text):
+        light26(True)
+        synthesisAndPlay("已开灯")
+    elif ("关灯" in text and "客厅" in text):
+        light26(False)
+        synthesisAndPlay("已关灯")
+    elif ("开灯" in text and "卧室" in text):
+        light16(True)
+        synthesisAndPlay("已开灯")
+    elif ("关灯" in text and "卧室" in text):
+        light16(False)
+        synthesisAndPlay("已关灯")
     else:
         play('./audio/none.wav')  # 未匹配口令播放反馈语音
     print('操作完成')
@@ -185,6 +209,7 @@ def identifyComplete(text):
 if __name__ == "__main__":
     while (1):
         interrupted = False
+        duihua = True
         detector = snowboydecoder.HotwordDetector('xiaoli.pmdl', sensitivity=0.5)
         print('等待唤醒')
         detector.start(detected_callback=detected,
