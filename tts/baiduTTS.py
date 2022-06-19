@@ -1,7 +1,8 @@
-from fetchToken import fetch_token
 import sys
 import wave
 from pyaudio import PyAudio, paInt16
+import json
+from fetchToken import fetch_token
 
 
 IS_PY3 = sys.version_info.major == 3
@@ -37,25 +38,18 @@ AUE = 6
 FORMATS = {3: "mp3", 4: "pcm", 5: "pcm", 6: "wav"}
 FORMAT = FORMATS[AUE]
 
-CUID = "123456PYTHON"
+
+
 
 TTS_URL = 'http://tsn.baidu.com/text2audio'
+TOKEN_URL = 'http://openapi.baidu.com/oauth/2.0/token'
 
-
-class DemoError(Exception):
-    pass
-
-
-"""  TOKEN start """
-
-TOKEN_URL = 'http://aip.baidubce.com/oauth/2.0/token'
-SCOPE = 'audio_tts_post'  # 有此scope表示有tts能力，没有请在网页里勾选
 
 def synthesis(text):
     token = fetch_token()
     tex = quote_plus(text)  # 此处TEXT需要两次urlencode
     print(tex)
-    params = {'tok': token, 'tex': tex, 'per': PER, 'spd': SPD, 'pit': PIT, 'vol': VOL, 'aue': AUE, 'cuid': CUID,
+    params = {'tok': token, 'tex': tex, 'per': PER, 'spd': SPD, 'pit': PIT, 'vol': VOL, 'aue': AUE, 'cuid': "quickstart",
               'lan': 'zh', 'ctp': 1}  # lan ctp 固定参数
 
     data = urlencode(params)
@@ -66,15 +60,12 @@ def synthesis(text):
     try:
         f = urlopen(req)
         result_str = f.read()
-
         headers = dict((name.lower(), value) for name, value in f.headers.items())
-
         has_error = ('content-type' not in headers.keys() or headers['content-type'].find('audio/') < 0)
     except  URLError as err:
         print('asr http response http code : ' + str(err.code))
         result_str = err.read()
         has_error = True
-
     save_file = "error.txt" if has_error else text + '.' + FORMAT
     with open(save_file, 'wb') as of:
         of.write(result_str)
@@ -83,7 +74,6 @@ def synthesis(text):
         if (IS_PY3):
             result_str = str(result_str, 'utf-8')
         print("tts api  error:" + result_str)
-
     print("result saved as :" + save_file)
 
 
@@ -111,3 +101,6 @@ def play(filename):
 def synthesisAndPlay(text):
     synthesis(text)
     play(text+'.wav')
+
+
+

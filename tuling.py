@@ -6,9 +6,6 @@ api_url = "http://openapi.tuling123.com/openapi/api/v2"
 
 def robot(text_input):
 
-
-
-
     req = {
         "perception":
         {
