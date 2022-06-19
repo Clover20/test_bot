@@ -10,7 +10,6 @@ def light17(con):
     else:
         GPIO.output(17, GPIO.LOW)
 
-
 def light26(con):
     GPIO.setwarnings(False)
     GPIO.setmode(GPIO.BCM)
@@ -19,8 +18,6 @@ def light26(con):
         GPIO.output(26, GPIO.HIGH)
     else:
         GPIO.output(26, GPIO.LOW)
-
-
 
 def light16(con):
     GPIO.setwarnings(False)

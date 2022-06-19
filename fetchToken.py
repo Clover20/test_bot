@@ -20,7 +20,6 @@ else:
 
 API_KEY = 'YM0DBWBtHmNRGiOGhhUTzl3K'
 SECRET_KEY = 'iHFAVxCnt6gwtGyxhXrDsMAiTEtFTWIN'
-
 TOKEN_URL = 'http://openapi.baidu.com/oauth/2.0/token'
 
 def fetch_token():

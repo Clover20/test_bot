@@ -37,14 +37,8 @@ AUE = 6
 
 FORMATS = {3: "mp3", 4: "pcm", 5: "pcm", 6: "wav"}
 FORMAT = FORMATS[AUE]
-
-
-
-
 TTS_URL = 'http://tsn.baidu.com/text2audio'
 TOKEN_URL = 'http://openapi.baidu.com/oauth/2.0/token'
-
-
 def synthesis(text):
     token = fetch_token()
     tex = quote_plus(text)  # 此处TEXT需要两次urlencode
@@ -96,7 +90,6 @@ def play(filename):
     stream.stop_stream()
     stream.close()
     p.terminate()
-
 
 def synthesisAndPlay(text):
     synthesis(text)

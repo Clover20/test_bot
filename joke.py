@@ -18,7 +18,6 @@ for a_tag in bsobj.find_all('a', string = re.compile('查看全文')):
     link = a_tag.get('href')
     if link:
         link_list.append(link)
-
 origin_url = origin_url.split('/')
 
 words_list = []
@@ -34,7 +33,6 @@ for link in link_list:
         #print(article)
         words_list.append(article)
 
-
 # 创建一个txt文件，文件名为mytxtfile,并向文件写入msg
 def text_create(name, msg):
     desktop_path = ""  # 新创建的txt文件的存放路径
@@ -42,10 +40,6 @@ def text_create(name, msg):
     file = open(full_path, "wb+")
     file.write(msg.encode("utf-8"))  # msg也就是下面的msg!
     file.close()
-
-
-
-
 
 def joke():
     origin_url = 'https://xiaohua.zol.com.cn/yijuhua/'  # 冷笑话
@@ -55,9 +49,7 @@ def joke():
         link = a_tag.get('href')
         if link:
             link_list.append(link)
-
     origin_url = origin_url.split('/')
-
     words_list = []
     for link in link_list:
         article_link = origin_url[0] + "//" + origin_url[2] + link
@@ -70,6 +62,4 @@ def joke():
             re.sub("[\n]+", "", article)
             # print(article)
             words_list.append(article)
-
-
     return choice(words_list)
