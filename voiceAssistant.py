@@ -156,15 +156,15 @@ def identifyComplete(text):
     """
     print('识别内容成功，内容为:' + text)
     maps = {
-        '打开谷歌': ['打开谷歌。', '打开谷歌', '打开谷歌，', 'google','谷歌','开谷歌']
+        '打开百度': ['打开百度。', '打开百度', '打开百度，', 'baidu','百度','开百度']
     }
     if (text == '再见。' or text == '拜拜。'):
         play(music_exit)  # 关闭系统播放反馈语音
         exit()
-    elif text in maps['打开谷歌']:
-        webbrowser.open_new_tab('https://www.google.com')
-        synthesis("已打开谷歌")
-        play('已打开谷歌.wav')  # 识别到播放反馈语音
+    elif text in maps['打开百度']:
+        webbrowser.open_new_tab('https://www.baidu.com')
+        synthesis("已打开百度")
+        play('已打开百度.wav')  # 识别到播放反馈语音
 
     elif ("对话" in text):
         synthesisAndPlay("已经进入图灵机器人")
