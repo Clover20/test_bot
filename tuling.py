@@ -27,7 +27,7 @@ def robot(text_input):
 
         "userInfo":
         {
-            "apiKey": "5a19b5ca9f744e2c908eb3fcf46d71ff",
+            "apiKey": "",
             "userId": "OnlyUseAlphabet"
         }
     }

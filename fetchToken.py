@@ -18,8 +18,8 @@ else:
     from urllib import urlencode
 
 
-API_KEY = 'YM0DBWBtHmNRGiOGhhUTzl3K'
-SECRET_KEY = 'iHFAVxCnt6gwtGyxhXrDsMAiTEtFTWIN'
+API_KEY = ''
+SECRET_KEY = ''
 TOKEN_URL = 'http://openapi.baidu.com/oauth/2.0/token'
 
 def fetch_token():
